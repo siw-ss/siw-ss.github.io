@@ -649,7 +649,7 @@ img
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #80808078;
+    background: #808080bc;
     border-radius: .5rem;
     transition: .3s;
 }
