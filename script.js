@@ -1,8 +1,16 @@
 // Menu show Y hidden
 const navMenu = document.getElementById('nav-menu'),
     toggleMenu = document.getElementById('nav-toggle'),
-    closeMenu = document.getElementById('nav-close');
+    closeMenu = document.getElementById('nav-close'),
+    trigger = document.querySelector(".trigger"),
+    allTriggers = document.querySelectorAll(".trigger"),
+    allCloseButtons =  document.querySelector(".close-button"),
+    modal = document.querySelector(".works__modal");
+    allModals = document.querySelectorAll(".works__modal");
 
+    console.log(trigger);
+    console.log(allTriggers);
+    console.log(allModals);
 // Show
 toggleMenu.addEventListener('click', ()=>{
     navMenu.classList.toggle('show');
@@ -27,9 +35,9 @@ navLink.forEach(n => n.addEventListener('click', linkAction));
 const sections = document.querySelectorAll('section[id]');
 
 window.addEventListener('scroll', scrollActive);
+const scrollY = window.pageYOffset
 
 function scrollActive(){
-    const scrollY = window.pageYOffset
 
     sections.forEach(current => {
         const sectionHeight = current.offsetHeight
@@ -46,3 +54,22 @@ function scrollActive(){
         }
     })
 }
+
+/* //modal
+function toggleModal() {
+    modal.classList.toggle("show-modal");
+}
+
+function windowOnClick(event) {
+    if (event.target === modal) {
+        toggleModal();
+    }
+}
+
+for (let i = 0; i < allTriggers.length; i++) {
+    allTriggers[i].addEventListener('click', toggleModal);
+}
+allCloseButtons.addEventListener("click", toggleModal);
+
+window.addEventListener("click", windowOnClick);
+ */
