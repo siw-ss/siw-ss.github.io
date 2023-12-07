@@ -2,13 +2,13 @@
 const navMenu = document.getElementById('nav-menu'),
     toggleMenu = document.getElementById('nav-toggle'),
     closeMenu = document.getElementById('nav-close'),
-    trigger = document.querySelector(".trigger"),
+    //trigger = document.querySelector(".trigger"),
     allTriggers = document.querySelectorAll(".trigger"),
-    allCloseButtons =  document.querySelector(".close-button"),
-    modal = document.querySelector(".works__modal");
+    allCloseButtons =  document.querySelectorAll(".close-button"),
+    //modal = document.querySelector(".works__modal"),
     allModals = document.querySelectorAll(".works__modal");
 
-    console.log(trigger);
+    //console.log(trigger);
     console.log(allTriggers);
     console.log(allModals);
 // Show
@@ -55,21 +55,18 @@ function scrollActive(){
     })
 }
 
-/* //modal
-function toggleModal() {
-    modal.classList.toggle("show-modal");
-}
+// //modal
+// function toggleModal(i) {
+//     allModals[i].classList.toggle("show-modal");
+// }
 
-function windowOnClick(event) {
-    if (event.target === modal) {
-        toggleModal();
-    }
-}
-
-for (let i = 0; i < allTriggers.length; i++) {
-    allTriggers[i].addEventListener('click', toggleModal);
-}
-allCloseButtons.addEventListener("click", toggleModal);
-
-window.addEventListener("click", windowOnClick);
- */
+// allTriggers.forEach((trigger,index) => {
+//     trigger.addEventListener('click',()=>{
+//         allModals[index].classList.toggle("show-modal");
+//     })
+// });
+// allCloseButtons.forEach((btn,index) => {
+//     btn.addEventListener('click',()=>{
+//         allModals[index].classList.toggle("show-modal");
+//     })
+// });
