@@ -20,7 +20,7 @@
     --text-color: #54423D;
     --first-color-light: #EAE7E6;
     --first-color-light-dark: #d7dcee;
-    --first-color-lighten: #FFFAFA;
+    --first-color-lighten: #fff;
 
     /* Font & Typography */
     --body-font: 'Poppins', sans-serif;
@@ -1018,4 +1018,62 @@ img
 .popup_flight_travlDil .content_flightht_travel_dil {
     max-height: 30%;
     overflow: auto;
+}
+
+/* TECHNOLOGIES SLIDER */
+.techs-slider {
+	align-items: center;
+	background: #E3E3E3;
+	display: flex;
+	justify-content: center;
+}
+
+@mixin white-gradient {
+	background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+}
+
+/* // Animation */
+@keyframes scroll {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-250px * 7))}
+}
+
+
+/* // Styling */
+.slider {
+	background: white;
+	box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
+	height: 100px;
+	margin: auto;
+	overflow:hidden;
+	position: relative;
+
+	&::before,
+	&::after {
+		@include white-gradient;
+		content: "";
+		height: 100px;
+		position: absolute;
+		width: 200px;
+		z-index: 2;
+	}
+	&::after {
+		right: 0;
+		top: 0;
+		transform: rotateZ(180deg);
+	}
+
+	&::before {
+		left: 0;
+		top: 0;
+	}
+	.slide-track {
+		animation: scroll 40s linear infinite;
+		display: flex;
+		width: calc(250px * 14);
+	}
+	.slide {
+		height: 100px;
+		width: 250px;
+	}
 }
