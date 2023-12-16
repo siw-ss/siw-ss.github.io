@@ -671,6 +671,12 @@ img
     font-weight: 600;
     color: var(--first-color-lighten);
 }
+.works__date
+{
+    font-size: var(--h4-font-size);
+    font-weight: 200;
+    color: var(--first-color-lighten);
+}
 
 .works__more_info
 {
@@ -1018,6 +1024,16 @@ img
 .popup_flight_travlDil .content_flightht_travel_dil {
     max-height: 30%;
     overflow: auto;
+}
+
+.content_flightht_travel_dil_description li{
+    font-size: var(--smaller-font-size);
+    padding: 5px;
+    list-style-type: square;
+}
+
+.content_flightht_travel_dil_description{
+    padding: 10px;
 }
 
 /* TECHNOLOGIES SLIDER */
