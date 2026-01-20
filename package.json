@@ -1,0 +1,28 @@
+{
+  "name": "siw-ss.github.io",
+  "version": "1.0.0",
+  "description": "This is my Portfolio Website ^^",
+  "main": "script.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "vite build && gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siw-ss/siw-ss.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/siw-ss/siw-ss.github.io/issues"
+  },
+  "homepage": "https://github.com/siw-ss/siw-ss.github.io#readme",
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "vite": "^6.4.1"
+  }
+}
