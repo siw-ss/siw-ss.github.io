@@ -4,6 +4,38 @@ const navMenu = document.getElementById('nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const navbar = document.getElementById('navbar');
 
+// Dark Mode Toggle
+const themeToggle = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+// Check for saved theme preference or default to 'light'
+const currentTheme = localStorage.getItem('theme') || 'light';
+html.setAttribute('data-theme', currentTheme);
+
+// Update icon based on current theme
+function updateThemeIcon() {
+    const icon = themeToggle.querySelector('i');
+    if (html.getAttribute('data-theme') === 'dark') {
+        icon.classList.remove('bx-moon');
+        icon.classList.add('bx-sun');
+    } else {
+        icon.classList.remove('bx-sun');
+        icon.classList.add('bx-moon');
+    }
+}
+
+updateThemeIcon();
+
+// Toggle theme
+themeToggle.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon();
+});
+
 // Toggle menu
 if (navToggle) {
     navToggle.addEventListener('click', () => {

@@ -25,13 +25,15 @@
     --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     
-    /* Neutral Colors */
+    /* Neutral Colors - Light Mode */
     --dark: #0f172a;
     --dark-light: #1e293b;
     --text: #1e293b;
     --text-light: #64748b;
     --bg: #ffffff;
     --bg-light: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: rgba(99, 102, 241, 0.1);
     
     /* Typography */
     --font-primary: 'Space Grotesk', sans-serif;
@@ -68,6 +70,23 @@
     
     /* Transitions */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+    --dark: #f8fafc;
+    --dark-light: #e2e8f0;
+    --text: #f1f5f9;
+    --text-light: #94a3b8;
+    --bg: #0f172a;
+    --bg-light: #1e293b;
+    --card-bg: #1e293b;
+    --border-color: rgba(148, 163, 184, 0.1);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5);
+    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
 html {
@@ -159,8 +178,12 @@ ul {
 .navbar.scrolled {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+    border-bottom: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .navbar.scrolled {
+    background: rgba(15, 23, 42, 0.9);
 }
 
 .nav-container {
@@ -229,6 +252,29 @@ ul {
 
 .nav-link:hover {
     color: var(--primary);
+}
+
+.theme-toggle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: var(--transition);
+    margin-left: var(--spacing-sm);
+}
+
+.theme-toggle:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: rotate(15deg);
 }
 
 .nav-toggle {
@@ -348,6 +394,13 @@ ul {
     font-weight: 600;
     border-radius: 50px;
     margin-bottom: var(--spacing-sm);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+[data-theme="dark"] .hero-badge {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: var(--primary-light);
 }
 
 .hero-name {
@@ -446,8 +499,8 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
-    border: 2px solid rgba(99, 102, 241, 0.2);
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
     border-radius: 50%;
     color: var(--primary);
     font-size: var(--font-size-xl);
@@ -629,9 +682,9 @@ ul {
     align-items: center;
     gap: var(--spacing-sm);
     padding: var(--spacing-sm);
-    background: white;
+    background: var(--card-bg);
     border-radius: 15px;
-    border: 2px solid rgba(99, 102, 241, 0.1);
+    border: 2px solid var(--border-color);
     transition: var(--transition);
 }
 
@@ -719,7 +772,7 @@ ul {
 }
 
 .skill-card {
-    background: white;
+    background: var(--card-bg);
     padding: var(--spacing-lg);
     border-radius: 20px;
     border: 2px solid rgba(99, 102, 241, 0.1);
@@ -839,7 +892,7 @@ ul {
 
 /* Slider Styling */
 .slider {
-    background: white;
+    background: var(--card-bg);
     box-shadow: var(--shadow-lg);
     height: 100px;
     margin: 0 auto;
@@ -848,7 +901,7 @@ ul {
     border-radius: 15px;
     width: 100%;
     max-width: var(--container-width);
-    border: 2px solid rgba(99, 102, 241, 0.1);
+    border: 2px solid var(--border-color);
     transition: var(--transition);
 }
 
@@ -859,12 +912,17 @@ ul {
 
 .slider::before,
 .slider::after {
-    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(to right, var(--card-bg) 0%, rgba(255,255,255,0) 100%);
     content: "";
     height: 100px;
     position: absolute;
     width: 200px;
     z-index: 2;
+}
+
+[data-theme="dark"] .slider::before,
+[data-theme="dark"] .slider::after {
+    background: linear-gradient(to right, #1e293b 0%, rgba(30,41,59,0) 100%);
 }
 
 .slider::after {
@@ -947,7 +1005,7 @@ ul {
 }
 
 .timeline-content {
-    background: white;
+    background: var(--card-bg);
     padding: var(--spacing-md);
     border-radius: 20px;
     border: 2px solid rgba(99, 102, 241, 0.1);
@@ -994,10 +1052,10 @@ ul {
 }
 
 .work-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 20px;
     overflow: hidden;
-    border: 2px solid rgba(99, 102, 241, 0.1);
+    border: 2px solid var(--border-color);
     transition: var(--transition);
 }
 
@@ -1125,7 +1183,7 @@ ul {
 }
 
 .work-modal-content {
-    background: white;
+    background: var(--card-bg);
     padding: var(--spacing-lg);
     border-radius: 20px;
     max-width: 600px;
@@ -1224,9 +1282,9 @@ ul {
 
 .contact-card {
     padding: var(--spacing-lg);
-    background: white;
+    background: var(--card-bg);
     border-radius: 20px;
-    border: 2px solid rgba(99, 102, 241, 0.1);
+    border: 2px solid var(--border-color);
     transition: var(--transition);
 }
 
@@ -1268,12 +1326,12 @@ ul {
 
 .footer-content {
     margin: 0 auto;
-    background: white;
+    background: var(--card-bg);
     border-radius: 30px;
     padding: var(--spacing-xl);
     text-align: center;
     box-shadow: var(--shadow-lg);
-    border: 2px solid rgba(99, 102, 241, 0.1);
+    border: 2px solid var(--border-color);
     position: relative;
     overflow: hidden;
 }
@@ -1398,7 +1456,7 @@ ul {
         left: -100%;
         width: 100%;
         height: calc(100vh - 80px);
-        background: white;
+        background: var(--card-bg);
         flex-direction: column;
         padding: var(--spacing-lg);
         transition: var(--transition);
@@ -1407,6 +1465,13 @@ ul {
     
     .nav-menu.active {
         left: 0;
+    }
+    
+    .theme-toggle {
+        position: absolute;
+        right: 70px;
+        top: 50%;
+        transform: translateY(-50%);
     }
     
     .nav-toggle {
