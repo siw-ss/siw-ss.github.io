@@ -74,7 +74,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Typing animation for hero title
 const typingText = document.querySelector('.typing-text');
-const texts = ['Software Engineering Student', 'Web Developer', 'AI Enthusiast'];
+const texts = ['Software Engineer', 'React Developer', 'TypeScript Enthusiast'];
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
