@@ -25,8 +25,8 @@
     />
 
     <!-- Stylesheet -->
-    <script type="module" crossorigin src="/siw-ss.github.io/assets/index-Cg9XqnuB.js"></script>
-    <link rel="stylesheet" crossorigin href="/siw-ss.github.io/assets/index-DefPTrwM.css">
+    <script type="module" crossorigin src="/siw-ss.github.io/assets/index-CWADw7SL.js"></script>
+    <link rel="stylesheet" crossorigin href="/siw-ss.github.io/assets/index-Bia33RIS.css">
   </head>
   <body>
     <!-- Navigation -->
@@ -43,6 +43,9 @@
           <li><a href="#works" class="nav-link">Works</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="bx bx-moon"></i>
+        </button>
         <div class="nav-toggle" id="nav-toggle">
           <span></span>
           <span></span>
@@ -372,7 +375,10 @@
             <div class="slide-track">
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/javascript-q0CngWqX.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/javascript.png"
+                  data-dark="img/techs-logos/dark-mode/javascript.png"
+                  src="/siw-ss.github.io/assets/javascript-yOlvdXw_.png"
                   height="100"
                   width="250"
                   alt="JavaScript"
@@ -380,7 +386,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/wordpress-C-L1J1IM.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/wordpress.png"
+                  data-dark="img/techs-logos/dark-mode/wordpress.png"
+                  src="/siw-ss.github.io/assets/wordpress-CqNushw2.png"
                   height="100"
                   width="250"
                   alt="WordPress"
@@ -388,7 +397,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/angular-9eRCrfyN.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/angular.png"
+                  data-dark="img/techs-logos/dark-mode/angular.png"
+                  src="/siw-ss.github.io/assets/angular-DExZgy9p.png"
                   height="100"
                   width="250"
                   alt="Angular"
@@ -396,7 +408,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/nodejs-D1jGBo-v.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/nodejs.png"
+                  data-dark="img/techs-logos/dark-mode/nodejs.png"
+                  src="/siw-ss.github.io/assets/nodejs-CZykg934.png"
                   height="100"
                   width="250"
                   alt="Node.js"
@@ -404,7 +419,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/mongodb-CDSuzhde.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/mongodb.png"
+                  data-dark="img/techs-logos/dark-mode/mongodb.png"
+                  src="/siw-ss.github.io/assets/mongodb-C_H2-mhk.png"
                   height="100"
                   width="250"
                   alt="MongoDB"
@@ -412,7 +430,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/python-Dy01gGTl.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/python.png"
+                  data-dark="img/techs-logos/dark-mode/python.png"
+                  src="/siw-ss.github.io/assets/python-sDEvZMBx.png"
                   height="100"
                   width="250"
                   alt="Python"
@@ -420,7 +441,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/springboot-DKjUdcOn.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/springboot.png"
+                  data-dark="img/techs-logos/dark-mode/springboot.png"
+                  src="/siw-ss.github.io/assets/springboot-l42uGKPN.png"
                   height="100"
                   width="250"
                   alt="Spring Boot"
@@ -428,7 +452,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/java-BF0BWaAN.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/java.png"
+                  data-dark="img/techs-logos/dark-mode/java.png"
+                  src="/siw-ss.github.io/assets/java-D5_wLxcd.png"
                   height="100"
                   width="250"
                   alt="Java"
@@ -436,7 +463,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="data:image/png;base64,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"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/figma.png"
+                  data-dark="img/techs-logos/dark-mode/figma.png"
+                  src="/siw-ss.github.io/assets/figma-CrtH6-vC.png"
                   height="100"
                   width="250"
                   alt="Figma"
@@ -444,7 +474,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/nuxt3-BHnoz_Ve.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/nuxt3.png"
+                  data-dark="img/techs-logos/dark-mode/nuxt3.png"
+                  src="/siw-ss.github.io/assets/nuxt3-4YT1lc2S.png"
                   height="100"
                   width="250"
                   alt="Nuxt 3"
@@ -452,7 +485,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/react-CcN2O3wR.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/react.png"
+                  data-dark="img/techs-logos/dark-mode/react.png"
+                  src="/siw-ss.github.io/assets/react-ByrScMWV.png"
                   height="100"
                   width="250"
                   alt="React"
@@ -460,7 +496,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/mysql-BttIQmVw.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/mysql.png"
+                  data-dark="img/techs-logos/dark-mode/mysql.png"
+                  src="/siw-ss.github.io/assets/mysql-DvZlNF7r.png"
                   height="100"
                   width="250"
                   alt="MySQL"
@@ -468,7 +507,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/php-5-xlQRaC.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/php.png"
+                  data-dark="img/techs-logos/dark-mode/php.png"
+                  src="/siw-ss.github.io/assets/php-DKXD0RLH.png"
                   height="100"
                   width="250"
                   alt="PHP"
@@ -477,7 +519,10 @@
               <!-- Duplicate for seamless loop -->
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/javascript-q0CngWqX.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/javascript.png"
+                  data-dark="img/techs-logos/dark-mode/javascript.png"
+                  src="/siw-ss.github.io/assets/javascript-yOlvdXw_.png"
                   height="100"
                   width="250"
                   alt="JavaScript"
@@ -485,7 +530,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/wordpress-C-L1J1IM.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/wordpress.png"
+                  data-dark="img/techs-logos/dark-mode/wordpress.png"
+                  src="/siw-ss.github.io/assets/wordpress-CqNushw2.png"
                   height="100"
                   width="250"
                   alt="WordPress"
@@ -493,7 +541,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/angular-9eRCrfyN.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/angular.png"
+                  data-dark="img/techs-logos/dark-mode/angular.png"
+                  src="/siw-ss.github.io/assets/angular-DExZgy9p.png"
                   height="100"
                   width="250"
                   alt="Angular"
@@ -501,7 +552,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/nodejs-D1jGBo-v.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/nodejs.png"
+                  data-dark="img/techs-logos/dark-mode/nodejs.png"
+                  src="/siw-ss.github.io/assets/nodejs-CZykg934.png"
                   height="100"
                   width="250"
                   alt="Node.js"
@@ -509,7 +563,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/mongodb-CDSuzhde.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/mongodb.png"
+                  data-dark="img/techs-logos/dark-mode/mongodb.png"
+                  src="/siw-ss.github.io/assets/mongodb-C_H2-mhk.png"
                   height="100"
                   width="250"
                   alt="MongoDB"
@@ -517,7 +574,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/python-Dy01gGTl.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/python.png"
+                  data-dark="img/techs-logos/dark-mode/python.png"
+                  src="/siw-ss.github.io/assets/python-sDEvZMBx.png"
                   height="100"
                   width="250"
                   alt="Python"
@@ -525,7 +585,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/springboot-DKjUdcOn.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/springboot.png"
+                  data-dark="img/techs-logos/dark-mode/springboot.png"
+                  src="/siw-ss.github.io/assets/springboot-l42uGKPN.png"
                   height="100"
                   width="250"
                   alt="Spring Boot"
@@ -533,7 +596,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/java-BF0BWaAN.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/java.png"
+                  data-dark="img/techs-logos/dark-mode/java.png"
+                  src="/siw-ss.github.io/assets/java-D5_wLxcd.png"
                   height="100"
                   width="250"
                   alt="Java"
@@ -541,7 +607,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="data:image/png;base64,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"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/figma.png"
+                  data-dark="img/techs-logos/dark-mode/figma.png"
+                  src="/siw-ss.github.io/assets/figma-CrtH6-vC.png"
                   height="100"
                   width="250"
                   alt="Figma"
@@ -549,7 +618,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/nuxt3-BHnoz_Ve.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/nuxt3.png"
+                  data-dark="img/techs-logos/dark-mode/nuxt3.png"
+                  src="/siw-ss.github.io/assets/nuxt3-4YT1lc2S.png"
                   height="100"
                   width="250"
                   alt="Nuxt 3"
@@ -557,7 +629,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/react-CcN2O3wR.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/react.png"
+                  data-dark="img/techs-logos/dark-mode/react.png"
+                  src="/siw-ss.github.io/assets/react-ByrScMWV.png"
                   height="100"
                   width="250"
                   alt="React"
@@ -565,7 +640,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/mysql-BttIQmVw.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/mysql.png"
+                  data-dark="img/techs-logos/dark-mode/mysql.png"
+                  src="/siw-ss.github.io/assets/mysql-DvZlNF7r.png"
                   height="100"
                   width="250"
                   alt="MySQL"
@@ -573,7 +651,10 @@
               </div>
               <div class="slide">
                 <img
-                  src="/siw-ss.github.io/assets/php-5-xlQRaC.png"
+                  class="tech-logo"
+                  data-light="img/techs-logos/light-mode/php.png"
+                  data-dark="img/techs-logos/dark-mode/php.png"
+                  src="/siw-ss.github.io/assets/php-DKXD0RLH.png"
                   height="100"
                   width="250"
                   alt="PHP"
