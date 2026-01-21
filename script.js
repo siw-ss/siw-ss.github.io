@@ -24,7 +24,25 @@ function updateThemeIcon() {
     }
 }
 
+// Update tech logos based on theme
+function updateTechLogos() {
+    const theme = html.getAttribute('data-theme');
+    const techLogos = document.querySelectorAll('.tech-logo');
+    
+    techLogos.forEach(logo => {
+        const lightSrc = logo.getAttribute('data-light');
+        const darkSrc = logo.getAttribute('data-dark');
+        
+        if (theme === 'dark' && darkSrc) {
+            logo.src = darkSrc;
+        } else if (lightSrc) {
+            logo.src = lightSrc;
+        }
+    });
+}
+
 updateThemeIcon();
+updateTechLogos();
 
 // Toggle theme
 themeToggle.addEventListener('click', () => {
@@ -34,6 +52,7 @@ themeToggle.addEventListener('click', () => {
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcon();
+    updateTechLogos();
 });
 
 // Toggle menu
