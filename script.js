@@ -8,8 +8,8 @@ const navbar = document.getElementById('navbar');
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
 
-// Check for saved theme preference or default to 'light'
-const currentTheme = localStorage.getItem('theme') || 'light';
+// Check for saved theme preference or default to 'dark'
+const currentTheme = localStorage.getItem('theme') || 'dark';
 html.setAttribute('data-theme', currentTheme);
 
 // Update icon based on current theme
@@ -125,7 +125,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Typing animation for hero title
 const typingText = document.querySelector('.typing-text');
-const texts = ['Software Engineer', 'React Developer', 'TypeScript Enthusiast'];
+const texts = ['Software Engineer', 'React Developer', 'Frontend Specialist', 'AI Enthusiast'];
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
