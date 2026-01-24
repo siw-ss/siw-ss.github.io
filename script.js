@@ -1,3 +1,5 @@
+import { initWorksFilter } from './src/works-filter.js';
+
 // Navigation Toggle
 const navToggle = document.getElementById('nav-toggle');
 const navMenu = document.getElementById('nav-menu');
@@ -344,3 +346,8 @@ window.addEventListener('load', () => {
 
 document.body.style.opacity = '0';
 document.body.style.transition = 'opacity 0.5s ease';
+
+// Initialize Works Filter
+document.addEventListener('DOMContentLoaded', () => {
+    initWorksFilter();
+});
