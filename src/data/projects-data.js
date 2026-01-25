@@ -17,7 +17,7 @@ export const projectsData = [
         { label: 'Impact', text: 'Real-world application addressing environmental sustainability' }
       ]
     },
-    image: 'img/works/green-challenge.png',
+    image: 'assets/images/projects/green-challenge.png',
     links: {
       github: null,
       live: null,
@@ -39,7 +39,7 @@ export const projectsData = [
         { label: 'Step 4', text: 'Pushing the image to dockerhub' }
       ]
     },
-    image: 'img/works/devops.png',
+    image: 'assets/images/projects/devops.png',
     links: {
       github: 'https://github.com/siw-ss/devops-automation',
       live: null,
@@ -61,7 +61,7 @@ export const projectsData = [
         { label: 'Data Navigation', text: 'Using buttons and bookmarks with different views' }
       ]
     },
-    image: 'img/works/power-bi.png',
+    image: 'assets/images/projects/power-bi.png',
     links: {
       github: null,
       live: 'https://drive.google.com/file/d/1XWlacQ281I0sP3LlnM44sz-f6t5SqINc/view?usp=sharing',
@@ -81,13 +81,13 @@ export const projectsData = [
       points: [
         { label: 'Framework', text: 'Built with Nuxt 3 and pnpm for modern development' },
         { label: 'Focus', text: 'UI/UX design and performance optimization' },
-        { label: 'Result', text: 'High-performance, responsive website' }
+        { label: 'Result', text: 'High-performance, SEO-focused, responsive website' }
       ]
     },
-    image: 'img/works/perpetual-code.png',
+    image: 'assets/images/projects/perpetual-code.png',
     links: {
       github: null,
-      live: null,
+      live: "https://perpetualcode.com/en",
       drive: null
     }
   },
@@ -106,7 +106,7 @@ export const projectsData = [
         { label: 'Certification', text: 'Completed comprehensive AI program' }
       ]
     },
-    image: 'img/works/ai-models.png',
+    image: 'assets/images/projects/ai-models.png',
     links: {
       github: null,
       live: 'https://drive.google.com/drive/folders/13WyUGH54TG4AdQeekR8Uhz70MOVYTbNW?usp=sharing',
@@ -128,7 +128,7 @@ export const projectsData = [
         { label: 'Features', text: 'User authentication and event management' }
       ]
     },
-    image: 'img/works/event-manager.png',
+    image: 'assets/images/projects/event-manager.png',
     links: {
       github: 'https://github.com/siw-ss/event-manager-react',
       live: null,
@@ -152,7 +152,7 @@ export const projectsData = [
         { label: 'Mission', text: 'Promoting sustainable vegan lifestyle choices' }
       ]
     },
-    image: 'img/works/be-nextgen.png',
+    image: 'assets/images/projects/be-nextgen.png',
     links: {
       github: null,
       live: null,
@@ -175,7 +175,7 @@ export const projectsData = [
         { label: 'Achievement', text: 'Won first prize among all junior enterprises in Tunisia' }
       ]
     },
-    image: 'img/works/sobflous.png',
+    image: 'assets/images/projects/sobflous.png',
     links: {
       github: null,
       live: null,
@@ -197,7 +197,7 @@ export const projectsData = [
         { label: 'Focus', text: 'Client satisfaction, quality, competitive pricing' }
       ]
     },
-    image: 'img/works/optimajuniorentreprise.png',
+    image: 'assets/images/projects/optimajuniorentreprise.png',
     links: {
       github: null,
       live: 'https://optimajuniorentreprise.com',
@@ -219,7 +219,7 @@ export const projectsData = [
         { label: 'Scope', text: 'Full website development and deployment' }
       ]
     },
-    image: 'img/works/lunivers-du-decor.png',
+    image: 'assets/images/projects/lunivers-du-decor.png',
     links: {
       github: null,
       live: 'https://luniversdudecor.com.tn',
@@ -241,7 +241,7 @@ export const projectsData = [
         { label: 'Scope', text: 'Full website development for Tunisia and Africa market' }
       ]
     },
-    image: 'img/works/prostore.png',
+    image: 'assets/images/projects/prostore.png',
     links: {
       github: null,
       live: 'https://prostore.com.tn',
@@ -263,7 +263,7 @@ export const projectsData = [
         { label: 'Scope', text: 'Full website development and content integration' }
       ]
     },
-    image: 'img/works/geoplus.png',
+    image: 'assets/images/projects/geoplus.png',
     links: {
       github: null,
       live: 'https://geoplus.com.tn',
@@ -284,7 +284,7 @@ export const projectsData = [
         { label: 'Complexity', text: 'Data visualization and enterprise management system' },
       ]
     },
-    image: 'img/works/cci-boost.png',
+    image: 'assets/images/projects/cci-boost.png',
     links: {
       github: null,
       live: 'https://cciboost.com',
@@ -307,7 +307,7 @@ export const projectsData = [
         { label: 'Focus', text: 'Fast loading times and cross-browser compatibility' }
       ]
     },
-    image: 'img/works/omnihome.png',
+    image: 'assets/images/projects/omnihome.png',
     links: {
       github: null,
       live: 'https://www.omnihome.fr',

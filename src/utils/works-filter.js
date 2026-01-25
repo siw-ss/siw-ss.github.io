@@ -1,4 +1,4 @@
-import { projectsData } from './projects-data.js';
+import { projectsData } from '../data/projects-data.js';
 
 export function initWorksFilter() {
   const worksGrid = document.querySelector('.works-grid');

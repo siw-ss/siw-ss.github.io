@@ -1,0 +1,172 @@
+/* ===========================
+   SKILLS SECTION
+   =========================== */
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.skill-header i {
+    font-size: var(--font-size-2xl);
+    color: var(--primary);
+}
+
+.skill-header h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+
+.skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill-name {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.skill-percent {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.skill-bar {
+    height: 10px;
+    background: var(--bg-light);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skill-progress {
+    height: 100%;
+    background: var(--gradient-1);
+    border-radius: 10px;
+    transition: width 1s ease;
+    position: relative;
+}
+
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Technologies Slider */
+.techs-slider {
+    margin-top: var(--spacing-md);
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 13)); }
+}
+
+.slider {
+    background: var(--card-bg);
+    box-shadow: var(--shadow-lg);
+    height: 100px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+    width: 100%;
+    max-width: var(--container-width);
+    border: 2px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.slider:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-xl);
+}
+
+.slider::before,
+.slider::after {
+    background: linear-gradient(to right, var(--card-bg) 0%, rgba(255,255,255,0) 100%);
+    content: "";
+    height: 100px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+}
+
+[data-theme="dark"] .slider::before,
+[data-theme="dark"] .slider::after {
+    background: linear-gradient(to right, #1e293b 0%, rgba(30,41,59,0) 100%);
+}
+
+.slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+}
+
+.slider::before {
+    left: 0;
+    top: 0;
+}
+
+.slider .slide-track {
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: calc(250px * 26);
+}
+
+.slider .slide {
+    height: 100px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.slider .slide img {
+    max-width: 100%;
+    max-height: 80px;
+    object-fit: contain;
+    filter: grayscale(0.3);
+    transition: var(--transition);
+}
+
+.slider .slide:hover img {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
