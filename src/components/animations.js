@@ -56,11 +56,20 @@ export function initAnimations() {
     }, fadeObserverOptions);
 
     // Add fade-in class to elements
-    const fadeElements = document.querySelectorAll('.work-card, .skill-card, .info-card, .exp-card, .timeline-item, .contact-card, .techs-slider');
+    const fadeElements = document.querySelectorAll('.work-card, .skill-card, .info-card, .exp-card, .timeline-item, .techs-slider');
     fadeElements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = `all 0.6s ease ${index * 0.1}s`;    
+        fadeObserver.observe(el);
+    });
+
+    // Contact cards with slightly faster animation
+    const contactCards = document.querySelectorAll('.contact-card');
+    contactCards.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `all 0.5s ease ${index * 0.08}s`;    
         fadeObserver.observe(el);
     });
 
