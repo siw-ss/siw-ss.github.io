@@ -29,15 +29,55 @@ export function initAnimations() {
         skillObserver.observe(card);
     });
 
-    // Parallax effect for hero orbs
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const orbs = document.querySelectorAll('.gradient-orb');
+    // Interactive cursor effect for gradient orbs
+    const heroSection = document.querySelector('.hero');
+    const orbs = document.querySelectorAll('.gradient-orb');
+    
+    if (heroSection && orbs.length > 0) {
+        let isMouseInHero = false;
         
-        orbs.forEach((orb, index) => {
-            const speed = 0.5 + (index * 0.1);
-            orb.style.transform = `translateY(${scrolled * speed}px)`;
+        heroSection.addEventListener('mousemove', (e) => {
+            isMouseInHero = true;
+            const rect = heroSection.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            orbs.forEach((orb, index) => {
+                const speed = 0.15 + (index * 0.08);
+                const moveX = (x - rect.width / 2) * speed;
+                const moveY = (y - rect.height / 2) * speed;
+                
+                orb.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.2)`;
+                orb.style.opacity = '0.8';
+            });
         });
+        
+        heroSection.addEventListener('mouseleave', () => {
+            isMouseInHero = false;
+            orbs.forEach((orb) => {
+                orb.style.transform = 'translate(0, 0) scale(1)';
+                orb.style.opacity = '0.6';
+            });
+        });
+        
+        // Update scroll parallax only when mouse is not in hero
+        window.addEventListener('scroll', () => {
+            if (!isMouseInHero) {
+                const scrolled = window.pageYOffset;
+                orbs.forEach((orb, index) => {
+                    const speed = 0.5 + (index * 0.1);
+                    orb.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            }
+        });
+    }
+
+    // Parallax effect for hero orbs (initial setup)
+    const initialScrolled = window.pageYOffset;
+    const initialOrbs = document.querySelectorAll('.gradient-orb');
+    initialOrbs.forEach((orb, index) => {
+        const speed = 0.5 + (index * 0.1);
+        orb.style.transform = `translateY(${initialScrolled * speed}px)`;
     });
 
     // Fade in animations on scroll
