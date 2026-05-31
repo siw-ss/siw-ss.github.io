@@ -48,6 +48,21 @@
     <link rel="shortcut icon" type="image/png" href="assets/images/profile/siw-fav.png" />
     <link rel="apple-touch-icon" href="assets/images/profile/siwar.png" />
 
+    <!-- Inline Theme Detection - Prevents FOUC -->
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+          } else {
+            // Default to dark mode - set it immediately
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch(e) {}
+      })();
+    </script>
+
     <!-- Box Icons -->
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
