@@ -1,0 +1,161 @@
+/* ===========================
+   AI SHOWCASE SECTION
+   =========================== */
+
+.ai-showcase {
+  background: var(--bg-light);
+  /* No horizontal overflow clipping — sandbox needs to bleed full width */
+  overflow: visible;
+}
+
+.ai-showcase .section-description {
+  text-align: center;
+  color: var(--text-light);
+  font-size: var(--font-size-sm);
+  margin-top: 0.5rem;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Grid — stacked, one card per AI project */
+.ai-showcase-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* ── Card ── */
+.ai-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ── Meta bar (title / description / tags / links) ── */
+.ai-card-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+}
+
+.ai-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ai-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.ai-card-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.ai-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+/* Action buttons */
+.ai-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.ai-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  color: var(--primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  font-family: var(--font-primary);
+  text-decoration: none;
+  transition: var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ai-action-btn i {
+  font-size: 1rem;
+}
+
+.ai-action-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ── Full-bleed sandbox ── */
+/*
+  Break out of the .container max-width so the iframe uses the
+  full viewport width. Classic negative-margin breakout technique.
+*/
+.ai-sandbox-wrapper {
+  /* Pull left/right to viewport edges */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+
+  /* Tall enough to actually interact with the content */
+  height: 80vh;
+  min-height: 520px;
+  max-height: 900px;
+
+  position: relative;
+  background: #0a0a0f;
+}
+
+.ai-sandbox-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ai-card-meta {
+    flex-direction: column;
+  }
+
+  .ai-card-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .ai-sandbox-wrapper {
+    height: 60vh;
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-sandbox-wrapper {
+    height: 55vh;
+    min-height: 320px;
+  }
+}

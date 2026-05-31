@@ -7,6 +7,7 @@ import { initThemeToggle } from './components/theme-toggle.js';
 import { initAnimations } from './components/animations.js';
 import { initHero } from './sections/hero.js';
 import { initWorksFilter } from './utils/works-filter.js';
+import { initAiShowcase } from './sections/ai-showcase.js';
 
 // Initialize all components when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,4 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initAnimations();
     initHero();
     initWorksFilter();
+    initAiShowcase();
 });
