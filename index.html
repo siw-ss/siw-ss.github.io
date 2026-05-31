@@ -48,6 +48,21 @@
     <link rel="shortcut icon" type="image/png" href="/siw-ss.github.io/assets/siw-fav-_T9Wg_m0.png" />
     <link rel="apple-touch-icon" href="/siw-ss.github.io/assets/siwar-M2oMvgEK.png" />
 
+    <!-- Inline Theme Detection - Prevents FOUC -->
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+          } else {
+            // Default to dark mode - set it immediately
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch(e) {}
+      })();
+    </script>
+
     <!-- Box Icons -->
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
@@ -105,8 +120,8 @@
       }
     }
     </script>
-    <script type="module" crossorigin src="/siw-ss.github.io/assets/index-nX7qRL9e.js"></script>
-    <link rel="stylesheet" crossorigin href="/siw-ss.github.io/assets/index-CWTVrlTr.css">
+    <script type="module" crossorigin src="/siw-ss.github.io/assets/index-DYoiRY8I.js"></script>
+    <link rel="stylesheet" crossorigin href="/siw-ss.github.io/assets/index-BLaP9nEm.css">
   </head>
   <body>
     <!-- Navigation -->
