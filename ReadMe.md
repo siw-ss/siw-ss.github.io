@@ -4,6 +4,8 @@
 
 🌐 **Live Site:** [siw-ss.github.io](https://siw-ss.github.io)
 
+[![Views](https://views.whatilearened.today/views/github/siw-ss/siw-ss.github.io.svg)](https://github.com/siw-ss/siw-ss.github.io)
+
 ---
 
 ## 🚀 Vite Setup

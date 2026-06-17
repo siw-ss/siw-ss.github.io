@@ -72,3 +72,22 @@
     border-top: 1px solid rgba(99, 102, 241, 0.1);
     margin-top: var(--spacing-sm);
 }
+
+.footer-counter {
+    margin-top: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer-counter:hover {
+    opacity: 1;
+}
+
+.footer-counter img {
+    height: 32px;
+    width: auto;
+    transition: filter 0.3s ease;
+}
