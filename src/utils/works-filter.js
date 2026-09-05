@@ -1,4 +1,5 @@
 import { projectsData } from '../data/projects-data.js';
+import { modalManager } from './modal-manager.js';
 
 // Initialize animations for work cards
 function initWorkCardAnimations() {
@@ -55,24 +56,47 @@ export function initWorksFilter() {
   // Create modals for all projects
   function createModals() {
     const modalsContainer = document.createElement('div');
-    modalsContainer.innerHTML = projectsData.map(project => `
+    modalsContainer.id = 'work-modals-container';
+    
+    modalsContainer.innerHTML = projectsData.map(project => 
+      renderProjectModal(project)
+    ).join('');
+    
+    document.body.appendChild(modalsContainer);
+
+    // Register all modals with manager
+    projectsData.forEach(project => {
+      const modal = document.getElementById(`modal-${project.id}`);
+      if (modal) {
+        modalManager.registerModal(`modal-${project.id}`, modal);
+      }
+    });
+  }
+
+  /**
+   * Render modal HTML for a project
+   * @param {Object} project - Project data object
+   * @returns {string} Modal HTML
+   */
+  function renderProjectModal(project) {
+    return `
       <div id="modal-${project.id}" class="work-modal">
         <div class="work-modal-content">
           <span class="work-modal-close">&times;</span>
           <h2>${project.title}</h2>
           <p>${project.modalContent.subtitle}</p>
-          <ul>
+          <ul class="modal-points">
             ${project.modalContent.points.map(point => `
               <li><strong>${point.label}:</strong> ${point.text}</li>
             `).join('')}
           </ul>
         </div>
       </div>
-    `).join('');
-    document.body.appendChild(modalsContainer);
+    `;
   }
 
   createModals();
+  attachModalEventListeners();
 
   // Extract unique values for filters
   const years = [...new Set(projectsData.map(p => new Date(p.date).getFullYear()))].sort((a, b) => b - a);
@@ -162,6 +186,11 @@ export function initWorksFilter() {
                 <i class="bx bx-link-external"></i>
               </a>
             ` : ''}
+            ${project.modalContent.resources?.pdf ? `
+              <button class="work-link pdf-viewer-link" data-pdf-path="${project.modalContent.resources.pdf}" aria-label="View PDF">
+                <i class="bx bxs-file"></i>
+              </button>
+            ` : ''}
             <button class="work-link work-info-btn" data-modal="modal-${project.id}">
               <i class="bx bx-info-circle"></i>
             </button>
@@ -178,8 +207,8 @@ export function initWorksFilter() {
       </div>
     `).join('');
 
-    // Re-attach modal listeners
-    attachModalListeners();
+    // Re-attach modal listeners - only call once during init
+    // No need to re-attach on every render since we use event delegation
     
     // Re-initialize animations for new work cards
     initWorkCardAnimations();
@@ -209,40 +238,310 @@ export function initWorksFilter() {
     renderProjects();
   });
 
-  // Modal functionality
-  function attachModalListeners() {
-    const infoButtons = document.querySelectorAll('.work-info-btn');
-    const modals = document.querySelectorAll('.work-modal');
-    const closeButtons = document.querySelectorAll('.work-modal-close');
+  // Modal functionality - Use event delegation to avoid listener leaks
+  function attachModalEventListeners() {
+    // Single delegated listener for all modal interactions
+    document.addEventListener('click', (e) => {
+      const closeBtn = e.target.closest('.work-modal-close');
+      const infoBtn = e.target.closest('.work-info-btn');
+      const pdfBtn = e.target.closest('.pdf-viewer-link');
 
-    infoButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const modalId = button.getAttribute('data-modal');
-        const modal = document.getElementById(modalId);
+      if (closeBtn) {
+        const modal = closeBtn.closest('.work-modal');
         if (modal) {
-          modal.classList.add('active');
+          modalManager.closeModal(modal.id);
         }
-      });
-    });
+      }
 
-    closeButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
+      if (infoBtn) {
         e.preventDefault();
-        const modal = e.target.closest('.work-modal');
-        if (modal) {
-          modal.classList.remove('active');
+        const modalId = infoBtn.getAttribute('data-modal');
+        modalManager.openModal(modalId);
+      }
+
+      if (pdfBtn) {
+        e.preventDefault();
+        const pdfPath = pdfBtn.getAttribute('data-pdf-path');
+        openPdfViewer(pdfPath);
+      }
+    });
+  }
+
+  /**
+   * Open PDF viewer in modal with page-flipping animation
+   * @param {string} pdfPath - Path to the PDF file
+   */
+  function openPdfViewer(pdfPath) {
+    let pdfModal = document.getElementById('pdf-viewer-modal');
+
+    if (!pdfModal) {
+      pdfModal = document.createElement('div');
+      pdfModal.id = 'pdf-viewer-modal';
+      pdfModal.className = 'pdf-viewer-modal';
+      pdfModal.innerHTML = `
+        <div class="pdf-modal-overlay">
+          <div class="pdf-modal-container">
+            <button class="pdf-modal-close" aria-label="Close PDF viewer">&times;</button>
+            <div class="pdf-viewer-wrapper">
+              <div id="pdf-loading" class="pdf-loading">
+                <div class="pdf-spinner"></div>
+                <p>Loading PDF...</p>
+              </div>
+              <div id="pdf-flipbook" class="pdf-flipbook" style="display: none;"></div>
+              <div class="pdf-controls" style="display: none;">
+                <button id="pdf-prev-btn" class="pdf-nav-btn" aria-label="Previous page">
+                  <i class="bx bx-chevron-left"></i>
+                </button>
+                <span class="pdf-page-info">
+                  <span id="pdf-current-page">1</span> / <span id="pdf-total-pages">0</span>
+                </span>
+                <button id="pdf-next-btn" class="pdf-nav-btn" aria-label="Next page">
+                  <i class="bx bx-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(pdfModal);
+
+      // Close button
+      pdfModal.querySelector('.pdf-modal-close').addEventListener('click', () => {
+        pdfModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        cleanupPdf();
+      });
+
+      // Close on background click
+      pdfModal.querySelector('.pdf-modal-overlay').addEventListener('click', (e) => {
+        if (e.target === pdfModal.querySelector('.pdf-modal-overlay')) {
+          pdfModal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+          cleanupPdf();
         }
       });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && pdfModal.classList.contains('active')) {
+          pdfModal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+          cleanupPdf();
+        }
+      });
+    }
+
+    /**
+     * Cleanup PDF resources to prevent memory leaks
+     */
+    function cleanupPdf() {
+      const flipbook = document.getElementById('pdf-flipbook');
+      flipbook._pdfDoc = null;
+      flipbook.innerHTML = '';
+    }
+
+    // Load and render PDF
+    loadPdfWithFlipAnimation(pdfPath);
+    pdfModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  /**
+   * Load PDF and create flip animation with lazy loading
+   * @param {string} pdfPath - Path to PDF file
+   */
+  async function loadPdfWithFlipAnimation(pdfPath) {
+    const flipbook = document.getElementById('pdf-flipbook');
+    const loading = document.getElementById('pdf-loading');
+    const controls = document.querySelector('.pdf-controls');
+    
+    // Show loading indicator
+    loading.style.display = 'flex';
+    flipbook.style.display = 'none';
+    controls.style.display = 'none';
+
+    // Clear previous content
+    flipbook.innerHTML = '';
+
+    try {
+      // Check for PDF.js library
+      const pdfjsLib = window.pdfjsLib;
+      if (!pdfjsLib) {
+        throw new Error('PDF.js library not available. Please try again or reload the page.');
+      }
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      const pdf = await pdfjsLib.getDocument(pdfPath).promise;
+      const totalPages = pdf.numPages;
+      
+      // Store reference for cleanup
+      flipbook._pdfDoc = pdf;
+      document.getElementById('pdf-total-pages').textContent = totalPages;
+
+      // Store PDF reference for lazy loading
+      flipbook.dataset.pdfDoc = JSON.stringify({ url: pdfPath, totalPages });
+
+      // Render ONLY the first page immediately
+      const pages = [];
+      const firstPage = await pdf.getPage(1);
+      const viewport = firstPage.getViewport({ scale: 2 });
+      
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      
+      const context = canvas.getContext('2d');
+      await firstPage.render({
+        canvasContext: context,
+        viewport: viewport
+      }).promise;
+
+      const pageDiv = document.createElement('div');
+      pageDiv.className = 'pdf-page active';
+      pageDiv.appendChild(canvas);
+      flipbook.appendChild(pageDiv);
+      pages.push(pageDiv);
+
+      // Create placeholder divs for other pages (lazy load on demand)
+      for (let pageNum = 2; pageNum <= totalPages; pageNum++) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'pdf-page';
+        placeholder.dataset.pageNum = pageNum;
+        placeholder.innerHTML = '<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#f5f5f5;"><p style="color:var(--text-light);">Page ' + pageNum + '</p></div>';
+        flipbook.appendChild(placeholder);
+        pages.push(placeholder);
+      }
+
+      // Hide loading, show flipbook and controls
+      loading.style.display = 'none';
+      flipbook.style.display = 'flex';
+      controls.style.display = 'flex';
+
+      // Initialize page flipping with lazy loading
+      setupPageFlipping(pages, pdf);
+
+    } catch (error) {
+      console.error('Error loading PDF:', error);
+      loading.innerHTML = `
+        <div style="text-align: center;">
+          <p style="color: var(--primary); margin-bottom: 1rem; font-weight: 600;">Unable to load PDF</p>
+          <p style="color: var(--text-light); margin-bottom: 1.5rem;">${error.message}</p>
+          <button onclick="window.location.reload()" style="padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Reload Page</button>
+        </div>
+      `;
+    }
+  }
+
+  let pdfKeyboardHandler = null;
+
+  /**
+   * Setup page flipping navigation with lazy loading
+   * @param {Array} pages - Array of page elements
+   * @param {Object} pdf - PDF document object
+   */
+  function setupPageFlipping(pages, pdf) {
+    let currentPage = 0;
+    const totalPages = pages.length;
+    const renderedPages = new Set([0]); // Track which pages have been rendered
+
+    const prevBtn = document.getElementById('pdf-prev-btn');
+    const nextBtn = document.getElementById('pdf-next-btn');
+    const currentPageSpan = document.getElementById('pdf-current-page');
+    const flipbook = document.getElementById('pdf-flipbook');
+
+    /**
+     * Render a specific page on demand (with concurrency control)
+     */
+    let renderingPage = null; // Track currently rendering page
+
+    async function renderPage(pageNum) {
+      if (renderedPages.has(pageNum) || renderingPage === pageNum) return; // Already rendered or rendering
+      
+      renderingPage = pageNum;
+      const page = pages[pageNum];
+      try {
+        const pdfPage = await pdf.getPage(pageNum + 1);
+        const viewport = pdfPage.getViewport({ scale: 2 });
+        
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        
+        const context = canvas.getContext('2d');
+        await pdfPage.render({
+          canvasContext: context,
+          viewport: viewport
+        }).promise;
+
+        // Only update if still the requested page
+        if (renderingPage === pageNum) {
+          page.innerHTML = '';
+          page.appendChild(canvas);
+          renderedPages.add(pageNum);
+        }
+      } catch (error) {
+        console.error(`Error rendering page ${pageNum + 1}:`, error);
+      } finally {
+        renderingPage = null;
+      }
+    }
+
+    function showPage(pageNum) {
+      pages.forEach((page, index) => {
+        page.classList.remove('active', 'flip-out', 'flip-in');
+        if (index === pageNum) {
+          page.classList.add('active');
+          if (index > currentPage) {
+            page.classList.add('flip-in');
+          } else if (index < currentPage) {
+            page.classList.add('flip-out');
+          }
+        }
+      });
+      currentPage = pageNum;
+      currentPageSpan.textContent = currentPage + 1;
+      
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage === totalPages - 1;
+
+      // Lazy load: render adjacent pages
+      if (currentPage > 0 && !renderedPages.has(currentPage - 1)) {
+        renderPage(currentPage - 1);
+      }
+      if (currentPage < totalPages - 1 && !renderedPages.has(currentPage + 1)) {
+        renderPage(currentPage + 1);
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 0) {
+        showPage(currentPage - 1);
+      }
     });
 
-    modals.forEach(modal => {
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.remove('active');
-        }
-      });
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < totalPages - 1) {
+        showPage(currentPage + 1);
+      }
     });
+
+    // Setup keyboard navigation (reuse existing handler)
+    if (pdfKeyboardHandler) {
+      document.removeEventListener('keydown', pdfKeyboardHandler);
+    }
+    
+    pdfKeyboardHandler = (e) => {
+      if (document.getElementById('pdf-viewer-modal').classList.contains('active')) {
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+      }
+    };
+    
+    document.addEventListener('keydown', pdfKeyboardHandler);
+
+    // Initialize
+    showPage(0);
   }
 
   // Initial render

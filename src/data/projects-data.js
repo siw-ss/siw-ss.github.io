@@ -15,7 +15,10 @@ export const projectsData = [
         { label: 'Best Practices', text: 'Code reviews, clean architecture, and maintainable codebase' },
         { label: 'Agile Development', text: 'Collaborative team environment with iterative delivery' },
         { label: 'Impact', text: 'Real-world application addressing environmental sustainability' }
-      ]
+      ],
+      resources: {
+        pdf: 'assets/documents/PFE Presentation 2024.pdf'
+      }
     },
     image: 'assets/images/projects/green-challenge.png',
     links: {
