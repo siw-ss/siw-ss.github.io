@@ -298,6 +298,14 @@ export function initWorksFilter() {
                 <button id="pdf-next-btn" class="pdf-nav-btn" aria-label="Next page">
                   <i class="bx bx-chevron-right"></i>
                 </button>
+                <div class="pdf-extra-controls">
+                  <button id="pdf-open-fullscreen-btn" class="pdf-extra-btn" aria-label="Open in new window">
+                    <i class="bx bx-expand"></i>
+                  </button>
+                  <button id="pdf-download-btn" class="pdf-extra-btn" aria-label="Download PDF">
+                    <i class="bx bx-download"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -379,8 +387,8 @@ export function initWorksFilter() {
       flipbook._pdfDoc = pdf;
       document.getElementById('pdf-total-pages').textContent = totalPages;
 
-      // Store PDF reference for lazy loading
-      flipbook.dataset.pdfDoc = JSON.stringify({ url: pdfPath, totalPages });
+      // Store PDF path for download and fullscreen
+      flipbook.dataset.pdfPath = pdfPath;
 
       // Render ONLY the first page immediately
       const pages = [];
@@ -524,6 +532,23 @@ export function initWorksFilter() {
       if (currentPage < totalPages - 1) {
         showPage(currentPage + 1);
       }
+    });
+
+    // Open in new window
+    document.getElementById('pdf-open-fullscreen-btn').addEventListener('click', () => {
+      const pdfPath = document.getElementById('pdf-flipbook').dataset.pdfPath;
+      window.open(pdfPath, '_blank');
+    });
+
+    // Download PDF
+    document.getElementById('pdf-download-btn').addEventListener('click', () => {
+      const pdfPath = document.getElementById('pdf-flipbook').dataset.pdfPath;
+      const link = document.createElement('a');
+      link.href = pdfPath;
+      link.download = pdfPath.split('/').pop() || 'presentation.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     });
 
     // Setup keyboard navigation (reuse existing handler)
