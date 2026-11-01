@@ -103,3 +103,12 @@
     color: var(--primary);
     font-weight: bold;
 }
+
+/* Modal Tags Section */
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: var(--spacing-md);
+  justify-content: center;
+}

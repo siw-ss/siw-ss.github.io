@@ -298,7 +298,7 @@ export const projectsData = [
     id: 'omnihome',
     title: 'OmniHome Website',
     date: '2022-05',
-    tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'Vanilla', 'Frontend', 'Corporate'],
+    tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'Frontend', 'Corporate'],
     description: 'Vanilla HTML/CSS/JavaScript website for OmniHome, a smart home solutions company. Built with Bootstrap for responsive design and modern web standards.',
     modalContent: {
       subtitle: 'Smart home solutions website (2022)',

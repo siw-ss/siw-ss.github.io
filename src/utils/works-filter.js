@@ -1,7 +1,9 @@
 import { projectsData } from '../data/projects-data.js';
 import { modalManager } from './modal-manager.js';
 
-// Initialize animations for work cards
+/**
+ * Initialize fade-in and tilt animations for work cards
+ */
 function initWorkCardAnimations() {
   const fadeObserverOptions = {
     threshold: 0.1,
@@ -18,50 +20,57 @@ function initWorkCardAnimations() {
   }, fadeObserverOptions);
 
   const workCards = document.querySelectorAll('.work-card');
+  
+  // Apply fade-in animation
   workCards.forEach((el, index) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
-    el.style.transition = `all 0.6s ease ${index * 0.1}s`;    
+    el.style.transition = `all 0.6s ease ${index * 0.1}s`;
     fadeObserver.observe(el);
   });
 
-  // Work card tilt effect
+  // Apply tilt effect on hover
   workCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
+
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      
+
       const rotateX = (y - centerY) / 10;
       const rotateY = (centerX - x) / 10;
-      
+
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
     });
-    
+
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
     });
   });
 }
 
+/**
+ * Initialize works filter with quick filters, dropdowns, and modal system
+ */
 export function initWorksFilter() {
   const worksGrid = document.querySelector('.works-grid');
   const filterContainer = document.querySelector('.works-filter');
-  
+
   if (!worksGrid || !filterContainer) return;
 
-  // Create modals for all projects
+  /**
+   * Create modals for all projects
+   */
   function createModals() {
     const modalsContainer = document.createElement('div');
     modalsContainer.id = 'work-modals-container';
-    
-    modalsContainer.innerHTML = projectsData.map(project => 
+
+    modalsContainer.innerHTML = projectsData.map(project =>
       renderProjectModal(project)
     ).join('');
-    
+
     document.body.appendChild(modalsContainer);
 
     // Register all modals with manager
@@ -76,7 +85,7 @@ export function initWorksFilter() {
   /**
    * Render modal HTML for a project
    * @param {Object} project - Project data object
-   * @returns {string} Modal HTML
+   * @returns {string} Modal HTML string
    */
   function renderProjectModal(project) {
     return `
@@ -90,6 +99,9 @@ export function initWorksFilter() {
               <li><strong>${point.label}:</strong> ${point.text}</li>
             `).join('')}
           </ul>
+          <div class="modal-tags">
+            ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
         </div>
       </div>
     `;
@@ -98,18 +110,21 @@ export function initWorksFilter() {
   createModals();
   attachModalEventListeners();
 
-  // Extract unique values for filters
+  // Extract unique years, tech stacks, and project types from project data
   const years = [...new Set(projectsData.map(p => new Date(p.date).getFullYear()))].sort((a, b) => b - a);
-  
+
   const techStacks = new Set();
   const types = new Set();
-  
+
   projectsData.forEach(project => {
     project.tags.forEach(tag => {
-      // Categorize tags
-      if (['Internship', 'University', 'Hackathon', 'Professional', 'Certification', 'Leadership', 'Winner'].includes(tag)) {
+      // Categorize tags into types or tech stacks
+      const typeIndicators = ['Internship', 'University', 'Hackathon', 'Professional', 'Certification', 'Leadership', 'Winner'];
+      const descriptiveTags = ['Full-Stack', 'Frontend', 'Backend', 'Mobile', 'E-commerce', 'Web Design', 'Corporate', 'Data Platform', 'Product Showcase', 'Community', 'Gamification', 'Performance', 'Authentication'];
+
+      if (typeIndicators.includes(tag)) {
         types.add(tag);
-      } else if (!['Full-Stack', 'Frontend', 'Backend', 'Mobile', 'E-commerce', 'Web Design', 'Corporate', 'Data Platform', 'Product Showcase', 'Community', 'Gamification', 'Performance', 'Authentication', 'Vanilla'].includes(tag)) {
+      } else if (!descriptiveTags.includes(tag)) {
         techStacks.add(tag);
       }
     });
@@ -118,12 +133,12 @@ export function initWorksFilter() {
   const sortedTechStacks = Array.from(techStacks).sort();
   const sortedTypes = Array.from(types).sort();
 
-  // Quick-filter variables
+  // Quick filter configuration
   let currentQuickFilter = 'all';
   const clientTags = ['e-commerce', 'corporate', 'leadership', 'client', 'freelance', 'product showcase'];
   const aiTags = ['python', 'ai', 'deep learning', 'machine learning', 'data', 'power bi'];
 
-  // Create filter dropdowns
+  // Render filter UI
   const filterHTML = `
     <div class="quick-filter-buttons">
       <button class="quick-filter-btn active" data-category="all">All</button>
@@ -137,7 +152,7 @@ export function initWorksFilter() {
         <option value="all">All Years</option>
         ${years.map(year => `<option value="${year}">${year}</option>`).join('')}
       </select>
-      
+
       <select class="filter-select" id="tech-filter">
         <option value="all">All Technologies</option>
         ${sortedTechStacks.map(tech => `<option value="${tech.toLowerCase()}">${tech}</option>`).join('')}
@@ -147,13 +162,13 @@ export function initWorksFilter() {
         <option value="all">All Types</option>
         ${sortedTypes.map(type => `<option value="${type.toLowerCase()}">${type}</option>`).join('')}
       </select>
-      
+
       <button class="filter-reset-btn" id="reset-filters">
         <i class="bx bx-reset"></i> Reset
       </button>
     </div>
   `;
-  
+
   filterContainer.innerHTML = filterHTML;
 
   // Sort projects by date (newest first)
@@ -170,37 +185,41 @@ export function initWorksFilter() {
     type: 'all'
   };
 
-  // Render projects
+  /**
+   * Render filtered projects with applied filters
+   */
   function renderProjects() {
     const filtered = sortedProjects.filter(project => {
       const projectYear = new Date(project.date).getFullYear().toString();
       const projectTags = project.tags.map(t => t.toLowerCase());
-      
+
       const yearMatch = currentFilters.year === 'all' || projectYear === currentFilters.year;
       const techMatch = currentFilters.tech === 'all' || projectTags.includes(currentFilters.tech);
       const typeMatch = currentFilters.type === 'all' || projectTags.includes(currentFilters.type);
-      
+
+      // Apply quick filter logic
       let quickMatch = true;
       if (currentQuickFilter === 'internship') quickMatch = projectTags.includes('internship');
       else if (currentQuickFilter === 'client') quickMatch = clientTags.some(t => projectTags.includes(t));
       else if (currentQuickFilter === 'university') quickMatch = projectTags.includes('university') || projectTags.includes('hackathon');
       else if (currentQuickFilter === 'ai') quickMatch = aiTags.some(t => projectTags.includes(t));
-      
+
       return yearMatch && techMatch && typeMatch && quickMatch;
     });
 
+    // Render project cards
     worksGrid.innerHTML = filtered.map(project => `
       <div class="work-card" data-tags="${project.tags.map(t => t.toLowerCase()).join(' ')}">
         <div class="work-image">
           <img src="${project.image}" alt="${project.title}" />
           <div class="work-overlay">
             ${project.links.github ? `
-              <a href="${project.links.github}" target="_blank" class="work-link">
+              <a href="${project.links.github}" target="_blank" class="work-link" aria-label="View GitHub">
                 <i class="bx bx-link-external"></i>
               </a>
             ` : ''}
             ${project.links.live ? `
-              <a href="${project.links.live}" target="_blank" class="work-link">
+              <a href="${project.links.live}" target="_blank" class="work-link" aria-label="View live">
                 <i class="bx bx-link-external"></i>
               </a>
             ` : ''}
@@ -209,7 +228,7 @@ export function initWorksFilter() {
                 <i class="bx bxs-file"></i>
               </button>
             ` : ''}
-            <button class="work-link work-info-btn" data-modal="modal-${project.id}">
+            <button class="work-link work-info-btn" data-modal="modal-${project.id}" aria-label="View details">
               <i class="bx bx-info-circle"></i>
             </button>
           </div>
@@ -218,21 +237,18 @@ export function initWorksFilter() {
           <h3 class="work-title">${project.title}</h3>
           <p class="work-date">${new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</p>
           <div class="work-tags">
-            ${project.tags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
-            ${project.tags.length > 2 ? `<span class="tag">+${project.tags.length - 2}</span>` : ''}
+            ${project.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${project.tags.length > 3 ? `<span class="tag more-tags-trigger" data-modal="modal-${project.id}">+${project.tags.length - 3}</span>` : ''}
           </div>
         </div>
       </div>
     `).join('');
 
-    // Re-attach modal listeners - only call once during init
-    // No need to re-attach on every render since we use event delegation
-    
-    // Re-initialize animations for new work cards
+    // Re-initialize animations for newly rendered cards
     initWorkCardAnimations();
   }
 
-  // Filter change listeners
+  // Attach filter event listeners
   document.getElementById('year-filter').addEventListener('change', (e) => {
     currentFilters.year = e.target.value;
     renderProjects();
@@ -248,22 +264,25 @@ export function initWorksFilter() {
     renderProjects();
   });
 
-  // Quick-filter button listeners
+  // Attach quick filter button listeners
   document.querySelectorAll('.quick-filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      // Update active button state
       document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentQuickFilter = btn.getAttribute('data-category');
-      // Reset dropdowns
+
+      // Reset dropdown filters
       currentFilters = { year: 'all', tech: 'all', type: 'all' };
       document.getElementById('year-filter').value = 'all';
       document.getElementById('tech-filter').value = 'all';
       document.getElementById('type-filter').value = 'all';
+
       renderProjects();
     });
   });
 
-  // Override the reset button to also reset quick-filter
+  // Reset all filters
   document.getElementById('reset-filters').addEventListener('click', () => {
     currentFilters = { year: 'all', tech: 'all', type: 'all' };
     currentQuickFilter = 'all';
@@ -275,12 +294,14 @@ export function initWorksFilter() {
     renderProjects();
   });
 
-  // Modal functionality - Use event delegation to avoid listener leaks
+  /**
+   * Attach event listeners for modal interactions using event delegation
+   */
   function attachModalEventListeners() {
-    // Single delegated listener for all modal interactions
     document.addEventListener('click', (e) => {
       const closeBtn = e.target.closest('.work-modal-close');
       const infoBtn = e.target.closest('.work-info-btn');
+      const moreTagsBtn = e.target.closest('.more-tags-trigger');
       const pdfBtn = e.target.closest('.pdf-viewer-link');
 
       if (closeBtn) {
@@ -293,6 +314,12 @@ export function initWorksFilter() {
       if (infoBtn) {
         e.preventDefault();
         const modalId = infoBtn.getAttribute('data-modal');
+        modalManager.openModal(modalId);
+      }
+
+      if (moreTagsBtn) {
+        e.preventDefault();
+        const modalId = moreTagsBtn.getAttribute('data-modal');
         modalManager.openModal(modalId);
       }
 

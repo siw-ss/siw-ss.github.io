@@ -218,6 +218,17 @@
     white-space: nowrap;
 }
 
+.tag.more-tags-trigger {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tag.more-tags-trigger:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
 [data-theme="dark"] .tag {
     background: rgba(99, 102, 241, 0.15);
     border-color: rgba(99, 102, 241, 0.3);
