@@ -118,8 +118,20 @@ export function initWorksFilter() {
   const sortedTechStacks = Array.from(techStacks).sort();
   const sortedTypes = Array.from(types).sort();
 
+  // Quick-filter variables
+  let currentQuickFilter = 'all';
+  const clientTags = ['e-commerce', 'corporate', 'leadership', 'client', 'freelance', 'product showcase'];
+  const aiTags = ['python', 'ai', 'deep learning', 'machine learning', 'data', 'power bi'];
+
   // Create filter dropdowns
   const filterHTML = `
+    <div class="quick-filter-buttons">
+      <button class="quick-filter-btn active" data-category="all">All</button>
+      <button class="quick-filter-btn" data-category="internship">Internships</button>
+      <button class="quick-filter-btn" data-category="client">Client Work</button>
+      <button class="quick-filter-btn" data-category="university">Academic</button>
+      <button class="quick-filter-btn" data-category="ai">AI / ML</button>
+    </div>
     <div class="filter-dropdowns">
       <select class="filter-select" id="year-filter">
         <option value="all">All Years</option>
@@ -168,7 +180,13 @@ export function initWorksFilter() {
       const techMatch = currentFilters.tech === 'all' || projectTags.includes(currentFilters.tech);
       const typeMatch = currentFilters.type === 'all' || projectTags.includes(currentFilters.type);
       
-      return yearMatch && techMatch && typeMatch;
+      let quickMatch = true;
+      if (currentQuickFilter === 'internship') quickMatch = projectTags.includes('internship');
+      else if (currentQuickFilter === 'client') quickMatch = clientTags.some(t => projectTags.includes(t));
+      else if (currentQuickFilter === 'university') quickMatch = projectTags.includes('university') || projectTags.includes('hackathon');
+      else if (currentQuickFilter === 'ai') quickMatch = aiTags.some(t => projectTags.includes(t));
+      
+      return yearMatch && techMatch && typeMatch && quickMatch;
     });
 
     worksGrid.innerHTML = filtered.map(project => `
@@ -230,11 +248,30 @@ export function initWorksFilter() {
     renderProjects();
   });
 
+  // Quick-filter button listeners
+  document.querySelectorAll('.quick-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentQuickFilter = btn.getAttribute('data-category');
+      // Reset dropdowns
+      currentFilters = { year: 'all', tech: 'all', type: 'all' };
+      document.getElementById('year-filter').value = 'all';
+      document.getElementById('tech-filter').value = 'all';
+      document.getElementById('type-filter').value = 'all';
+      renderProjects();
+    });
+  });
+
+  // Override the reset button to also reset quick-filter
   document.getElementById('reset-filters').addEventListener('click', () => {
     currentFilters = { year: 'all', tech: 'all', type: 'all' };
+    currentQuickFilter = 'all';
     document.getElementById('year-filter').value = 'all';
     document.getElementById('tech-filter').value = 'all';
     document.getElementById('type-filter').value = 'all';
+    document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.quick-filter-btn[data-category="all"]').classList.add('active');
     renderProjects();
   });
 
