@@ -5,6 +5,7 @@ export const projectsData = [
     date: '2024-07',
     startDate: '2024-02',
     endDate: '2024-07',
+    role: 'Full-Stack Developer',
     tags: ['Symfony', 'Next.js', 'Flutter', 'Full-Stack', 'Mobile', 'Internship'],
     description: 'Full-stack web and mobile solution promoting sustainable transportation. Final year internship project combining Symfony 7 backend, Next.js 6 frontend, and Flutter mobile app with seamless UX and best practices.',
     modalContent: {
@@ -31,6 +32,7 @@ export const projectsData = [
     id: 'devops-jenkins',
     title: 'DevOps - Jenkins Pipeline',
     date: '2023-12',
+    role: 'DevOps Engineer',
     tags: ['DevOps', 'Jenkins', 'Docker', 'SonarQube', 'CI/CD', 'University'],
     description: 'University project automating the analysis and dockerization of SpringBoot applications using Jenkins Pipeline. Implemented build automation, code analysis with SonarQube, Docker image creation, and DockerHub deployment.',
     modalContent: {
@@ -53,6 +55,7 @@ export const projectsData = [
     id: 'power-bi',
     title: 'Museum Of Modern Art - Power BI Dashboard',
     date: '2023-12',
+    role: 'Data Analyst',
     tags: ['Power BI', 'Data Analysis', 'DAX', 'University'],
     description: 'University project analyzing The Museum of Modern Art\'s collection. Implemented data preparation, DAX calculations, interactive visualizations, and navigation features for comprehensive artwork analysis.',
     modalContent: {
@@ -77,6 +80,7 @@ export const projectsData = [
     date: '2023-08',
     startDate: '2022-06',
     endDate: '2023-08',
+    role: 'Frontend Developer',
     tags: ['Nuxt 3', 'Node.js', 'pnpm', 'Frontend', 'Performance', 'Internship'],
     description: 'Summer internship 2022-23 project. Developed the official website for Perpetual Code company using Nuxt 3 and pnpm. Focused on UI/UX design and performance optimization for an exceptional user experience.',
     modalContent: {
@@ -98,6 +102,7 @@ export const projectsData = [
     id: 'ai-models',
     title: 'AI Models & Deep Learning',
     date: '2023-07',
+    role: 'AI/ML Student',
     tags: ['AI', 'Deep Learning', 'CNN', 'NLP', 'Python', 'Certification'],
     description: 'Certified AI program during summer 2022-23. Comprehensive exploration of machine learning models including Deep Learning, CNN for ASL prediction, and NLP techniques. Hands-on experience with cutting-edge AI technologies.',
     modalContent: {
@@ -120,6 +125,7 @@ export const projectsData = [
     id: 'event-manager',
     title: 'Event Manager',
     date: '2022-12',
+    role: 'Full-Stack Developer',
     tags: ['React', 'Node.js', 'MongoDB', 'MERN', 'Authentication', 'Full-Stack', 'University'],
     description: 'MERN Stack event management application built in December 2022. Features user authentication and comprehensive event management capabilities. A fun and practical project demonstrating full-stack development skills.',
     modalContent: {
@@ -144,6 +150,7 @@ export const projectsData = [
     date: '2022-08',
     startDate: '2021-06',
     endDate: '2022-08',
+    role: 'Full-Stack Developer',
     tags: ['Angular', 'MongoDB', 'Node.js', 'E-commerce', 'Community', 'Internship'],
     description: 'Summer internship 2021-22 project. Full-stack web platform for selling vegan food and building vegan communities. Built with Angular frontend and MongoDB backend, promoting sustainable lifestyle choices.',
     modalContent: {
@@ -166,15 +173,25 @@ export const projectsData = [
     id: 'sobflous',
     title: 'Sobflous Wheel of Fortune Solution',
     date: '2021-11',
+    role: 'Full-Stack Developer & Team Coordinator',
     tags: ['Hackathon', 'Full-Stack', 'Gamification', 'Winner'],
     description: 'Award-winning project from a 4-day hackathon in 2021 organized by JET for junior enterprises in Tunisia. Team of 4 (2 developers, 1 sales, 1 designer) developed an interactive wheel of fortune solution for Sobflous company. Won first prize.',
+    contributions: [
+      'Collaborated with developers on business logic and core functionality',
+      'Ensured CSS implementation was flawless and matched original mockups',
+      'Designed and implemented additional pages not covered in initial mockups',
+      'Co-presented solution with sales team, delivering synchronized pitch',
+      'Managed technical and non-technical Q&A during jury evaluation',
+      'Coordinated cross-functional team efforts to ensure cohesive delivery'
+    ],
     modalContent: {
       subtitle: '🏆 First Prize Winner - JET Hackathon 2021 (4 days)',
       points: [
         { label: 'Challenge', text: 'Develop and pitch a gamification solution for Sobflous company' },
         { label: 'Team', text: 'Collaborated with 2 developers, 1 sales, 1 designer' },
         { label: 'Solution', text: 'Interactive wheel of fortune with engaging user experience' },
-        { label: 'My Role', text: 'Full-stack development and technical implementation' },
+        { label: 'Role', text: 'Full-Stack Developer & Team Coordinator - managed team alignment and execution' },
+        { label: 'My Contributions', text: 'Full-stack development, UI/UX design, presentation deck creation, co-presented solution, handled jury Q&A' },
         { label: 'Achievement', text: 'Won first prize among all junior enterprises in Tunisia' }
       ]
     },
@@ -189,6 +206,7 @@ export const projectsData = [
     id: 'optimaje',
     title: 'Optimaje - Junior Enterprise Website',
     date: '2022-06',
+    role: 'Project Lead & Full-Stack Developer',
     tags: ['WordPress', 'PHP', 'MySQL', 'Web Design', 'Leadership'],
     description: 'Renovated the official website of Optima Junior Enterprise (FST\'s junior enterprise) in 2022 as Head of Projects Department. Showcases their expertise in web development, mobile development, and web marketing services. The platform highlights their commitment to client satisfaction, quality, and competitive pricing.',
     modalContent: {
@@ -211,6 +229,7 @@ export const projectsData = [
     id: 'lunivers-du-decor',
     title: 'L\'Univers Du Décor Website',
     date: '2023-06',
+    role: 'Web Developer',
     tags: ['WordPress', 'PHP', 'MySQL', 'E-commerce', 'Web Design'],
     description: 'Professional website for L\'univers du décor, a specialized interior decoration and furnishing company in Tunisia. Showcases their 25+ years of experience in custom decoration solutions, pergolas, false ceilings, and floor coverings.',
     modalContent: {
@@ -233,6 +252,7 @@ export const projectsData = [
     id: 'prostore',
     title: 'ProStore Website',
     date: '2022-09',
+    role: 'Web Developer',
     tags: ['WordPress', 'PHP', 'MySQL', 'E-commerce', 'Product Showcase'],
     description: 'Website for ProStore, a manufacturer of custom interior blinds and solar protection solutions in Tunisia and Africa. Features product catalog including Zebra, Boat, Japanese, and Vertical blinds with detailed specifications.',
     modalContent: {
@@ -255,6 +275,7 @@ export const projectsData = [
     id: 'geoplus',
     title: 'GeoPlus Website',
     date: '2022-12',
+    role: 'Web Developer',
     tags: ['WordPress', 'CSS', 'Web Design', 'Corporate'],
     description: 'Website for GeoPlus, an applied geophysics expertise company in Tunisia. Highlights their scientific approach, HSE compliance, and collaboration with academic institutions for geophysical solutions.',
     modalContent: {
@@ -277,6 +298,7 @@ export const projectsData = [
     id: 'cciboost',
     title: 'CCIBoost Website',
     date: '2023-03',
+    role: 'Web Developer',
     tags: ['WordPress', 'PHP', 'MySQL', 'Web Design', 'Corporate', 'Data Platform'],
     description: 'Professional website for CCI Boost, a platform connecting creative and cultural enterprises with investors and business partners. Features The Index (27 indicators for business analysis), matchmaking services, and academy resources. Supports 122+ enterprises across 60 countries with data-driven insights.',
     modalContent: {
@@ -298,6 +320,7 @@ export const projectsData = [
     id: 'omnihome',
     title: 'OmniHome Website',
     date: '2022-05',
+    role: 'Frontend Developer',
     tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'Frontend', 'Corporate'],
     description: 'Vanilla HTML/CSS/JavaScript website for OmniHome, a smart home solutions company. Built with Bootstrap for responsive design and modern web standards.',
     modalContent: {

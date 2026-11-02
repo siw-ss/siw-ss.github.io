@@ -39,6 +39,29 @@
     position: relative;
     box-shadow: var(--shadow-2xl);
     animation: slideUp 0.3s ease;
+    max-height: 90vh;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+    box-sizing: border-box;
+}
+
+.work-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.work-modal-content::-webkit-scrollbar-track {
+    background: transparent;
+    margin-right: 2px;
+}
+
+.work-modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.work-modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
 }
 
 @keyframes slideUp {
@@ -112,3 +135,41 @@
   margin-top: var(--spacing-md);
   justify-content: center;
 }
+
+/* Modal Contributions Section */
+.modal-contributions {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--border-color);
+}
+
+.modal-contributions h3 {
+  font-size: var(--font-size-lg);
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+}
+
+.contributions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contributions-list li {
+  color: var(--text-light);
+  padding: 0.6rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.contributions-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 1.1em;
+}
+

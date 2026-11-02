@@ -193,6 +193,13 @@
     margin-bottom: 0.25rem;
 }
 
+.work-role {
+    font-size: var(--font-size-xs);
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
 .work-date {
     font-size: var(--font-size-xs);
     color: var(--text-light);

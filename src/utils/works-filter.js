@@ -99,6 +99,16 @@ export function initWorksFilter() {
               <li><strong>${point.label}:</strong> ${point.text}</li>
             `).join('')}
           </ul>
+          ${project.contributions ? `
+            <div class="modal-contributions">
+              <h3>My Contributions</h3>
+              <ul class="contributions-list">
+                ${project.contributions.map(contribution => `
+                  <li>${contribution}</li>
+                `).join('')}
+              </ul>
+            </div>
+          ` : ''}
           <div class="modal-tags">
             ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
@@ -235,6 +245,7 @@ export function initWorksFilter() {
         </div>
         <div class="work-content">
           <h3 class="work-title">${project.title}</h3>
+          <p class="work-role">${project.role}</p>
           <p class="work-date">${new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</p>
           <div class="work-tags">
             ${project.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
