@@ -195,13 +195,18 @@
     bottom: -35px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--dark);
+    background: #0f172a;
     color: white;
     padding: 0.5rem 0.75rem;
     border-radius: 5px;
     font-size: var(--font-size-xs);
     white-space: nowrap;
     z-index: 10;
+}
+
+[data-theme="dark"] .social-icon[data-tooltip]:hover::after {
+    background: #1e293b;
+    color: #f1f5f9;
 }
 
 .hero-image {
