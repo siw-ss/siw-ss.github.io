@@ -111,22 +111,21 @@
 
 /* ── Full-bleed sandbox ── */
 /*
-  Break out of the .container max-width so the iframe uses the
-  full viewport width. Classic negative-margin breakout technique.
+  Container for iframe that displays full content on all screen sizes.
+  Uses a fixed min-height that works across all viewports.
 */
 .ai-sandbox-wrapper {
-  /* Pull left/right to viewport edges */
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  width: 100vw;
-
-  /* Tall enough to actually interact with the content */
-  height: 80vh;
-  min-height: 520px;
-  max-height: 900px;
+  /* Full width, no margins, no overflow issues */
+  width: 100%;
+  
+  /* Fixed minimum height - never cramped */
+  height: 500px;
+  min-height: 500px;
 
   position: relative;
   background: #0a0a0f;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
 }
 
 .ai-sandbox-iframe {
@@ -148,14 +147,14 @@
   }
 
   .ai-sandbox-wrapper {
-    height: 60vh;
-    min-height: 380px;
+    height: 500px;
+    min-height: 500px;
   }
 }
 
 @media (max-width: 480px) {
   .ai-sandbox-wrapper {
-    height: 55vh;
-    min-height: 320px;
+    height: 500px;
+    min-height: 500px;
   }
 }
