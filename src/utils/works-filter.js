@@ -2,6 +2,78 @@ import { projectsData } from '../data/projects-data.js';
 import { modalManager } from './modal-manager.js';
 
 /**
+ * Calculate duration between two dates and format it
+ * @param {string} startDate - Start date in YYYY-MM format
+ * @param {string} endDate - End date in YYYY-MM format
+ * @returns {string} Formatted duration string (e.g., "6 mo")
+ */
+function calculateDuration(startDate, endDate) {
+  if (!startDate || !endDate) return null;
+  
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  let months = (end.getFullYear() - start.getFullYear()) * 12;
+  months += end.getMonth() - start.getMonth();
+  months += 1; // Include both start and end month
+  
+  if (months < 1) return null;
+  if (months === 1) return '1 mo';
+  if (months < 12) return `${months} mo`;
+  
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+  
+  if (remainingMonths === 0) {
+    return years === 1 ? '1 yr' : `${years} yrs`;
+  }
+  return `${years} yr ${remainingMonths} mo`;
+}
+
+/**
+ * Format date range and duration
+ * @param {string} startDate - Start date in YYYY-MM format
+ * @param {string} endDate - End date in YYYY-MM format
+ * @param {Array} tags - Project tags array
+ * @returns {string} Formatted string like "Feb - Jul 2024 · 6 mo" or just "Jul 2024"
+ */
+function formatDateRange(startDate, endDate, tags = []) {
+  // Hide duration for university projects (show just date)
+  const isUniversityProject = tags.some(t => t.toLowerCase() === 'university');
+  
+  if (!startDate || !endDate) {
+    return new Date(endDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+  }
+  
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  const startMonth = start.toLocaleDateString('en-US', { month: 'short' });
+  const endMonth = end.toLocaleDateString('en-US', { month: 'short' });
+  const year = end.getFullYear();
+  
+  // If university project, don't show duration
+  if (isUniversityProject) {
+    return `${endMonth} ${year}`;
+  }
+  
+  const duration = calculateDuration(startDate, endDate);
+  
+  if (startMonth === endMonth && start.getFullYear() === end.getFullYear()) {
+    // Same month and year
+    return duration ? `${startMonth} ${year} · ${duration}` : `${startMonth} ${year}`;
+  }
+  
+  if (start.getFullYear() === end.getFullYear()) {
+    // Same year
+    return duration ? `${startMonth} - ${endMonth} ${year} · ${duration}` : `${startMonth} - ${endMonth} ${year}`;
+  }
+  
+  // Different years
+  return duration ? `${startMonth} ${start.getFullYear()} - ${endMonth} ${year} · ${duration}` : `${startMonth} ${start.getFullYear()} - ${endMonth} ${year}`;
+}
+
+/**
  * Initialize fade-in and tilt animations for work cards
  */
 function initWorkCardAnimations() {
@@ -246,7 +318,7 @@ export function initWorksFilter() {
         <div class="work-content">
           <h3 class="work-title">${project.title}</h3>
           <p class="work-role">${project.role}</p>
-          <p class="work-date">${new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</p>
+          <p class="work-date">${formatDateRange(project.startDate, project.endDate, project.tags)}</p>
           <div class="work-tags">
             ${project.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
             ${project.tags.length > 3 ? `<span class="tag more-tags-trigger" data-modal="modal-${project.id}">+${project.tags.length - 3}</span>` : ''}

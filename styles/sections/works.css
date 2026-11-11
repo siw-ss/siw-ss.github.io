@@ -188,13 +188,14 @@
 }
 
 .work-title {
-    font-size: var(--font-size-sm);
+    font-size: 0.95rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
+    line-height: 1.15;
 }
 
 .work-role {
-    font-size: var(--font-size-xs);
+    font-size: 0.9rem;
     color: var(--primary);
     font-weight: 600;
     margin-bottom: 0.25rem;
@@ -203,7 +204,7 @@
 .work-date {
     font-size: var(--font-size-xs);
     color: var(--text-light);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .work-tags {
