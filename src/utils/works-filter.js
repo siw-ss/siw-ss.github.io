@@ -171,6 +171,16 @@ export function initWorksFilter() {
               <li><strong>${point.label}:</strong> ${point.text}</li>
             `).join('')}
           </ul>
+          ${project.modalContent.keyLearnings ? `
+            <div class="modal-key-learnings">
+              <h3>Key Learnings</h3>
+              <ul class="modal-points">
+                ${project.modalContent.keyLearnings.map(learning => `
+                  <li><strong>${learning.label}:</strong> ${learning.text}</li>
+                `).join('')}
+              </ul>
+            </div>
+          ` : ''}
           ${project.contributions ? `
             <div class="modal-contributions">
               <h3>My Contributions</h3>

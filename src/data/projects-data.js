@@ -143,6 +143,12 @@ export const projectsData = [
         { label: 'Backend', text: 'Node.js with Express server' },
         { label: 'Database', text: 'MongoDB for data persistence' },
         { label: 'Features', text: 'User authentication and event management' }
+      ],
+      keyLearnings: [
+        { label: 'React Routing', text: 'React Router for multi-page navigation and role-based access control' },
+        { label: 'State Management', text: 'useState and useEffect hooks for component state and side effects' },
+        { label: 'API Integration', text: 'Axios for HTTP requests and client-server communication' },
+        { label: 'Full-Stack Flow', text: 'End-to-end understanding of request flow from UI to database' }
       ]
     },
     image: 'assets/images/projects/event-manager.png',

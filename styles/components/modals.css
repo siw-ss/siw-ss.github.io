@@ -173,3 +173,17 @@
   font-size: 1.1em;
 }
 
+/* Modal Key Learnings Section */
+.modal-key-learnings {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--border-color);
+}
+
+.modal-key-learnings h3 {
+  font-size: var(--font-size-lg);
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+}
+
