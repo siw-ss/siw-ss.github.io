@@ -3,15 +3,25 @@ import { modalManager } from './modal-manager.js';
 
 /**
  * Calculate duration between two dates and format it
- * @param {string} startDate - Start date in YYYY-MM format
- * @param {string} endDate - End date in YYYY-MM format
- * @returns {string} Formatted duration string (e.g., "6 mo")
+ * @param {string} startDate - Start date in YYYY-MM or YYYY-MM-DD format
+ * @param {string} endDate - End date in YYYY-MM or YYYY-MM-DD format
+ * @returns {string} Formatted duration string (e.g., "6 mo", "4 days")
  */
 function calculateDuration(startDate, endDate) {
   if (!startDate || !endDate) return null;
   
   const start = new Date(startDate);
   const end = new Date(endDate);
+  
+  // Calculate days difference
+  const timeDiff = end - start;
+  const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end days
+  
+  // If less than a month, show days
+  if (daysDiff < 30) {
+    if (daysDiff === 1) return '1 day';
+    return `${daysDiff} days`;
+  }
   
   let months = (end.getFullYear() - start.getFullYear()) * 12;
   months += end.getMonth() - start.getMonth();
@@ -32,8 +42,8 @@ function calculateDuration(startDate, endDate) {
 
 /**
  * Format date range and duration
- * @param {string} startDate - Start date in YYYY-MM format
- * @param {string} endDate - End date in YYYY-MM format
+ * @param {string} startDate - Start date in YYYY-MM or YYYY-MM-DD format
+ * @param {string} endDate - End date in YYYY-MM or YYYY-MM-DD format
  * @param {Array} tags - Project tags array
  * @returns {string} Formatted string like "Feb - Jul 2024 · 6 mo" or just "Jul 2024"
  */
@@ -58,6 +68,14 @@ function formatDateRange(startDate, endDate, tags = []) {
   }
   
   const duration = calculateDuration(startDate, endDate);
+  
+  // For very short durations (days), show month · days format
+  if (duration && duration.includes('day')) {
+    if (startMonth === endMonth && start.getFullYear() === end.getFullYear()) {
+      return `${endMonth} ${year} · ${duration}`;
+    }
+    return `${startMonth} - ${endMonth} ${year} · ${duration}`;
+  }
   
   if (startMonth === endMonth && start.getFullYear() === end.getFullYear()) {
     // Same month and year
